@@ -1,0 +1,45 @@
+/* Style for clickable items */
+.item-name {
+    cursor: pointer;
+    color: #333;
+    font-size: 2rem;
+  }
+  
+  /* Remove default list styling */
+  ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  
+  /* Style for expanded items */
+  ul ul {
+    padding-left: 12rem;
+  }
+  
+  /* Style for different levels */
+  ul ul ul {
+    padding-left: 12rem;
+  }
+  
+  ul ul ul ul {
+    padding-left: 18rem;
+  }
+  
+  /* Additional indentation for subsubchild */
+  ul ul ul ul ul {
+    padding-left: 80px;
+  }
+  
+  /* Style for the icon */
+  .icon {
+    margin-right: 5px;
+    color: cornflowerblue;
+    font-size: 2rem;
+
+  }
+  h1{
+    font-size: 3rem;
+  }
+.container{
+    margin-left: 3rem;
+}
