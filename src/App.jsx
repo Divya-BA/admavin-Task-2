@@ -26,7 +26,7 @@ function App() {
             </li>
           </ul>
         </nav>
-<h1><h1>Welcome to AdMavin Company Task</h1></h1>
+<h1 className='title'>Welcome to AdMavin Company Task</h1>
         <Routes> {/* Use Routes wrapper */}
         <Route path="/" element={<SplitBox />} />
           <Route path="/game" element={<Game />} />

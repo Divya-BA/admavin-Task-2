@@ -34,4 +34,8 @@ nav {
     background-color: #ddd;
     color: black;
   }
-  
+  .title{
+    position: fixed;
+       background-color:white;
+
+  }

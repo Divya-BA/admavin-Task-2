@@ -2,25 +2,24 @@ import React, { useState } from 'react';
 import './SplitBox.css';
 
 const BoxSplit = () => {
-  const [boxes, setBoxes] = useState([{ id: 1, size: 400, x: 0, y: 0, isHovered: false }]);
+  const [boxes, setBoxes] = useState([{ id: 1, size: 400, x: 0, y: 0, isHovered: false, parentId: null }]);
 
-  const handleSplit = (id) => {
+  const handleSplit = (parentId) => {
     setBoxes(prevBoxes => {
-      const clickedBoxIndex = prevBoxes.findIndex(box => box.id === id);
-      const clickedBox = prevBoxes[clickedBoxIndex];
-      const newSize = clickedBox.size / 2;
+      const parentBox = prevBoxes.find(box => box.id === parentId);
+      const newSize = parentBox.size / 2;
       const newBoxes = [
-        ...prevBoxes.slice(0, clickedBoxIndex),
-        { id: prevBoxes.length + 1, size: newSize, x: clickedBox.x, y: clickedBox.y },
-        { id: prevBoxes.length + 2, size: newSize, x: clickedBox.x + newSize, y: clickedBox.y },
-        { id: prevBoxes.length + 3, size: newSize, x: clickedBox.x, y: clickedBox.y + newSize },
-        { id: prevBoxes.length + 4, size: newSize, x: clickedBox.x + newSize, y: clickedBox.y + newSize },
-        ...prevBoxes.slice(clickedBoxIndex + 1)
+        ...prevBoxes,
+        { id: prevBoxes.length + 1, size: newSize, x: parentBox.x, y: parentBox.y, parentId: parentBox.id },
+        { id: prevBoxes.length + 2, size: newSize, x: parentBox.x + newSize, y: parentBox.y, parentId: parentBox.id },
+        { id: prevBoxes.length + 3, size: newSize, x: parentBox.x, y: parentBox.y + newSize, parentId: parentBox.id },
+        { id: prevBoxes.length + 4, size: newSize, x: parentBox.x + newSize, y: parentBox.y + newSize, parentId: parentBox.id }
       ];
-      return newBoxes.map((box, index) => ({...box, id: index + 1})); // Resetting IDs
+      return newBoxes.map((box, index) => ({ ...box, id: index + 1 }));
     });
   };
 
+ 
   const handleMouseEnter = (id) => {
     setBoxes(prevBoxes => {
       return prevBoxes.map(box => {
@@ -48,27 +47,34 @@ const BoxSplit = () => {
       <div className='container'>
         <h1>Box Split</h1>
         <div className='box-container'>
-          {boxes.map(box => (
+          {boxes.map((box, index) => (
             <div
               key={box.id}
-              className={`box ${box.isHovered ? 'hovered' : ''}`}
+              className={`box ${box.isHovered ? 'hovered' : ''} ${box.parentId ? 'child-box' : 'parent-box'}`}
               style={{
                 position: 'absolute',
                 width: `${box.size}px`,
                 height: `${box.size}px`,
                 border: '1px solid black',
                 top: `${box.y}px`,
-                left: `${box.x}px`
+                left: `${box.x}px`,
+                backgroundColor: box.parentId && (box.id - 1) % 4 === 0 ? 'red' : 'inherit'
+
+
               }}
               onClick={() => handleSplit(box.id)}
               onMouseEnter={() => handleMouseEnter(box.id)}
               onMouseLeave={() => handleMouseLeave(box.id)}
-            ></div>
+            >
+              <div className='box-index'>{index}</div>
+            </div>
           ))}
         </div>
       </div>
     </>
   );
+  
+  
 };
 
 export default BoxSplit;

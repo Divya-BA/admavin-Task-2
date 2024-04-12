@@ -6,7 +6,7 @@ const Game = () => {
   const [boxes, setBoxes] = useState(Array(9).fill(false));
   const [score, setScore] = useState(0);
   const [misses, setMisses] = useState(0);
-  const [timeLeft, setTimeLeft] = useState(60);
+  const [timeLeft, setTimeLeft] = useState(20);
   const [hitBoxIndex, setHitBoxIndex] = useState(null);
   const [gameOver, setGameOver] = useState(false);
 
@@ -27,19 +27,23 @@ const Game = () => {
   };
 
   const handleClick = (index) => {
+    if(gameOver){
+      return;
+    }
     if (index === hitBoxIndex) {
       setScore(score + 5);
-    } else {
+    }else{
       setMisses(misses + 1);
       setScore(score - 2.5);
     }
+    
   };
 
   const restartGame = () => {
     setBoxes(Array(9).fill(false));
     setScore(0);
     setMisses(0);
-    setTimeLeft(60);
+    setTimeLeft(20);
     setHitBoxIndex(null);
     setGameOver(false);
   };
@@ -57,11 +61,14 @@ const Game = () => {
   }, [timeLeft, gameOver]); // Include gameOver in the dependency array
 
   useEffect(() => {
-    if (timeLeft > 0 && !gameOver) {
+    if (timeLeft > 0 && !gameOver ) {
       generateRandomBox();
     } else {
       setGameOver(true);
+      // setScore(0);
+      // setMisses(0);
     }
+
   }, [timeLeft, gameOver]);
 
   return (
