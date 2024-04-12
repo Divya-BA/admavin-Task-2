@@ -34,8 +34,16 @@ nav {
     background-color: #ddd;
     color: black;
   }
-  .title{
+  /* .title{
     position: fixed;
        background-color:white;
 
+  } */
+
+  .title {
+    position: fixed;
+    top: 6%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Center the element */
+    background-color:rgb(243, 239, 235);
   }

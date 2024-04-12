@@ -124,7 +124,7 @@ const App = () => {
 
   return (
     <div>
-      <h1>Nested List Example</h1>
+      <h1 className='nest'>Nested List Example</h1>
       <NestedList data={data} />
     </div>
   );
